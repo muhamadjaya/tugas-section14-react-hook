@@ -58,6 +58,7 @@ const Todolist = () => {
       });
       setInputs({ addTodoValue: "", todos });
     } else {
+      alert("Please Add Todo Text");
       console.log("Please Add Todo Text");
     }
   };
