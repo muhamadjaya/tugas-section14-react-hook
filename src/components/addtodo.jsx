@@ -32,10 +32,10 @@ const AddTodo = ({ addTodoValue, fooAddTodo }) => {
         placeholder="Add todo..."
         onChange={handleChange}
       />
-      <div className="input-group-append">
+      <div className="input-group-append groupAppend">
         <button
           onClick={addTodo}
-          className="btn btn-outline-secondary"
+          className="btn btnAdd"
           type="button"
           id="button-addon2"
         >
