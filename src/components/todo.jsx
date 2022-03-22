@@ -2,7 +2,12 @@ import React from "react";
 
 const Todo = ({ todo, fooDelete, fooDoneDone }) => {
   const checkTodo = () => {
-    if (todo.completed) return <s>{todo.value}</s>;
+    if (todo.completed)
+      return (
+        <s>
+          <i>{todo.value}</i>
+        </s>
+      );
     else return todo.value;
   };
 
