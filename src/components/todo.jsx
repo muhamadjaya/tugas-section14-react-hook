@@ -1,14 +1,14 @@
 import React from "react";
 
-const Todo = ({ todo, fooDelete, fooDoneDone }) => {
-  const checkTodo = () => {
+const Todo = ({ todo, handleComplete, handleDelete }) => {
+  const checkComplete = () => {
     if (todo.completed)
       return (
         <s>
-          <i>{todo.value}</i>
+          <i>{todo.title}</i>
         </s>
       );
-    else return todo.value;
+    else return todo.title;
   };
 
   return (
@@ -17,13 +17,13 @@ const Todo = ({ todo, fooDelete, fooDoneDone }) => {
         <input
           type="checkbox"
           defaultChecked={todo.completed}
-          onChange={() => fooDoneDone(todo)}
+          onChange={() => handleComplete(todo)}
         />
       </td>
-      <td>{checkTodo()}</td>
+      <td>{checkComplete()}</td>
       <td style={{ width: 100 }} className="text-center">
         <button
-          onClick={() => fooDelete(todo.id)}
+          onClick={() => handleDelete(todo.id)}
           className="btn btn-danger btn-sm"
         >
           Delete

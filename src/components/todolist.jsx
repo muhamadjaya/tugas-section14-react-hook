@@ -1,91 +1,70 @@
 import React, { useState } from "react";
+import Addtodo from "./addtodo";
 import Todo from "./todo";
-import AddTodo from "./addtodo";
+import { v4 as uuidv4 } from "uuid";
 
 const Todolist = () => {
-  const [inputs, setInputs] = useState({
-    addTodoValue: "",
-    todos: [
-      {
-        id: 1,
-        value: "Mengerjakan Exercise",
-        completed: true,
-      },
-      {
-        id: 2,
-        value: "Mengerjakan Assignment",
-        completed: false,
-      },
-      {
-        id: 3,
-        value: "Membuat Resume",
-        completed: false,
-      },
-    ],
-  });
+  const [task, setTask] = useState([
+    {
+      id: uuidv4(),
+      title: "Mengerjakan Exercise",
+      completed: true,
+    },
+    {
+      id: uuidv4(),
+      title: "Mengerjakan Assignment",
+      completed: false,
+    },
+    {
+      id: uuidv4(),
+      title: "Membuat Resume",
+      completed: false,
+    },
+  ]);
 
-  const getTime = () => {
-    let d = new Date();
-    var n = d.getTime();
-    return n;
+  const submitTodo = (title) => {
+    setTask([...task, { id: uuidv4(), title, completed: false }]);
   };
 
-  const handleDelete = (todo) => {
-    const todos = inputs.todos.filter((t) => {
-      return t.id !== todo;
-    });
-    setInputs({ todos });
-  };
-
-  const handleDone = (todo) => {
-    const todos = [...inputs.todos];
+  const handleComplete = (todo) => {
+    const todos = [...task];
     todos.map((t) => {
       if (t.id === todo.id) {
         t.completed = !t.completed;
       }
       return t;
     });
-    setInputs({ todos });
+    setTask([...todos]);
   };
 
-  const addNewTodo = (value) => {
-    if (value) {
-      const todos = [...inputs.todos];
-      todos.push({
-        id: getTime(),
-        value: value,
-        completed: false,
-      });
-      setInputs({ addTodoValue: "", todos });
-    } else {
-      alert("Please Add Todo Text");
-      console.log("Please Add Todo Text");
-    }
+  const handleDelete = (todo) => {
+    const todos = task.filter((t) => {
+      return t.id !== todo;
+    });
+    setTask(todos);
   };
 
   return (
-    <table className="table">
-      <tbody>
-        <tr>
-          <td colSpan="4" className="text-center">
-            <AddTodo
-              fooAddTodo={addNewTodo}
-              addTodoValue={inputs.addTodoValue}
-            />
-          </td>
-        </tr>
-        {inputs.todos.map((todo, index) => (
-          <tr key={todo.id}>
-            <Todo
-              index={index + 1}
-              todo={todo}
-              fooDelete={handleDelete}
-              fooDoneDone={handleDone}
-            />
+    <div>
+      <table className="table">
+        <tbody>
+          <tr>
+            <td colSpan="4" className="text-center">
+              <Addtodo submitTodo={submitTodo} />
+            </td>
           </tr>
-        ))}
-      </tbody>
-    </table>
+          {task.map((todo, todoIdx) => (
+            <tr key={todo.id}>
+              <Todo
+                todo={todo}
+                handleDelete={handleDelete}
+                handleComplete={handleComplete}
+              />
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

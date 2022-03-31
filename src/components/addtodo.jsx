@@ -1,25 +1,22 @@
 import React, { useState } from "react";
 
-const AddTodo = ({ addTodoValue, fooAddTodo }) => {
-  const [submits, setSubmits] = useState({
-    defaultValue: "",
-    value: addTodoValue,
-  });
+const Addtodo = ({ submitTodo }) => {
+  const [submits, setSubmits] = useState("");
 
   const handleChange = (e) => {
-    setSubmits({
-      value: e.target.value,
-    });
+    setSubmits(e.target.value);
   };
 
   const clearInput = () => {
-    document.getElementById("todoValue").value = "";
-
-    setSubmits({ value: "" });
+    document.getElementById("title").value = "";
+    setSubmits("");
   };
 
   const addTodo = () => {
-    fooAddTodo(submits.value);
+    if (submits === "") {
+      return alert("Add todo must be filled !");
+    }
+    submitTodo(submits);
     clearInput();
   };
 
@@ -28,7 +25,7 @@ const AddTodo = ({ addTodoValue, fooAddTodo }) => {
       <input
         type="text"
         className="form-control"
-        id="todoValue"
+        id="title"
         placeholder="Add todo..."
         onChange={handleChange}
       />
@@ -46,4 +43,4 @@ const AddTodo = ({ addTodoValue, fooAddTodo }) => {
   );
 };
 
-export default AddTodo;
+export default Addtodo;
